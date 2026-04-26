@@ -217,7 +217,7 @@
             margin: 0 auto;
         }
 
-        /* ── Tab Nav ── */
+        /* ── Nav ── */
         nav {
             background: var(--nav-bg);
             border-top: 1px solid rgba(255,255,255,.06);
@@ -239,35 +239,29 @@
             gap: 2px;
         }
 
-        nav button {
+        nav a {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             background: transparent;
-            border: none;
-            color: rgba(255,255,255,.45);
+            color: rgba(255,255,255,.55);
             font-family: inherit;
             font-size: .875rem;
             font-weight: 500;
             padding: 7px 20px;
             border-radius: 7px;
-            cursor: pointer;
             white-space: nowrap;
-            transition: color .15s, background .15s, box-shadow .15s;
-            outline-offset: 2px;
+            text-decoration: none;
+            transition: color .15s, background .15s;
         }
 
-        nav button:hover { color: rgba(255,255,255,.75); }
-
-        nav button.active {
+        nav a:hover {
             background: rgba(255,255,255,.13);
             color: #fff;
-            box-shadow: 0 1px 4px rgba(0,0,0,.35), 0 0 0 .5px rgba(255,255,255,.08);
         }
 
         /* ── Layout ── */
-        .page { display: none; }
-        .page.active { display: block; }
+        .page { display: block; }
 
         .content {
             max-width: 860px;
@@ -667,14 +661,14 @@
 
     <nav>
         <div class="tab-list">
-            <button class="active" onclick="showPage('home', this)">Home</button>
-            <button onclick="showPage('hobbies', this)">Hobbies</button>
-            <button onclick="showPage('contact', this)">Contact</button>
+            <a href="#home">Home</a>
+            <a href="#hobbies">Hobbies</a>
+            <a href="#contact">Contact</a>
         </div>
     </nav>
 
     <!-- ════════════════════════════════ HOME ════════════════════════════════ -->
-    <div id="home" class="page active">
+    <div id="home" class="page" style="scroll-margin-top:56px;">
         <div class="content">
 
             <!-- Profile -->
@@ -783,12 +777,12 @@
                 <div class="card-title"><span class="icon">🔗</span> Links</div>
                 <ul class="link-list">
                     <li>
-                        <a href="#" onclick="showPage('hobbies', document.querySelectorAll('nav button')[1]); return false;">My Hobbies</a>
-                        <span class="link-desc">— internal page</span>
+                        <a href="#hobbies">My Hobbies</a>
+                        <span class="link-desc">— scroll to section</span>
                     </li>
                     <li>
-                        <a href="#" onclick="showPage('contact', document.querySelectorAll('nav button')[2]); return false;">Contact Me</a>
-                        <span class="link-desc">— internal page</span>
+                        <a href="#contact">Contact Me</a>
+                        <span class="link-desc">— scroll to section</span>
                     </li>
                     <li>
                         <a href="https://www.youtube.com/" target="_blank">YouTube</a>
@@ -847,7 +841,7 @@
     </div>
 
     <!-- ════════════════════════════════ HOBBIES ════════════════════════════════ -->
-    <div id="hobbies" class="page">
+    <div id="hobbies" class="page" style="scroll-margin-top:56px;">
         <div class="content">
 
             <!-- Overview grid -->
@@ -937,15 +931,15 @@
             </div>
 
             <div class="page-actions">
-                <button onclick="showPage('home',    document.querySelectorAll('nav button')[0])" class="btn btn-dark">← Home</button>
-                <button onclick="showPage('contact', document.querySelectorAll('nav button')[2])" class="btn btn-primary">Contact Me →</button>
+                <a href="#home" class="btn btn-dark">← Home</a>
+                <a href="#contact" class="btn btn-primary">Contact Me →</a>
             </div>
 
         </div>
     </div>
 
     <!-- ════════════════════════════════ CONTACT ════════════════════════════════ -->
-    <div id="contact" class="page">
+    <div id="contact" class="page" style="scroll-margin-top:56px;">
         <div class="content">
 
             <!-- Info table -->
@@ -994,16 +988,16 @@
             <div class="card">
                 <div class="card-title"><span class="icon">🔗</span> Useful Links</div>
                 <ul class="link-list">
-                    <li><a href="#" onclick="showPage('home',    document.querySelectorAll('nav button')[0]); return false;">Home Page</a></li>
-                    <li><a href="#" onclick="showPage('hobbies', document.querySelectorAll('nav button')[1]); return false;">Hobbies Page</a></li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#hobbies">Hobbies</a></li>
                     <li><a href="https://www.youtube.com/" target="_blank">YouTube</a></li>
                     <li><a href="https://tcueng.tcu.edu.tw/" target="_blank">TCU Website</a></li>
                 </ul>
             </div>
 
             <div class="page-actions">
-                <button onclick="showPage('home',    document.querySelectorAll('nav button')[0])" class="btn btn-dark">← Home</button>
-                <button onclick="showPage('hobbies', document.querySelectorAll('nav button')[1])" class="btn btn-ghost">My Hobbies</button>
+                <a href="#home" class="btn btn-dark">← Home</a>
+                <a href="#hobbies" class="btn btn-ghost">My Hobbies</a>
                 <a href="mailto:112211112@gms.tcu.edu.tw" class="btn btn-primary">✉ Send Email</a>
             </div>
 
@@ -1019,22 +1013,14 @@
     <footer>
         <button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Back to Top</button>
         <div class="footer-links">
-            <a href="#" onclick="showPage('home',    document.querySelectorAll('nav button')[0]); return false;">Home</a>
-            <a href="#" onclick="showPage('hobbies', document.querySelectorAll('nav button')[1]); return false;">Hobbies</a>
-            <a href="#" onclick="showPage('contact', document.querySelectorAll('nav button')[2]); return false;">Contact</a>
+            <a href="#home">Home</a>
+            <a href="#hobbies">Hobbies</a>
+            <a href="#contact">Contact</a>
         </div>
         <p>&copy; 2026 Volintika Inti Aura</p>
     </footer>
 
     <script>
-        function showPage(id, btn) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            if (btn) btn.classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
         function setAvatar(src) {
             const img = document.getElementById('avatarImg');
             const initial = document.getElementById('avatarInitial');
