@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Volintika's Website</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:        #f8fafc;
+            --surface:   #ffffff;
+            --border:    #e2e8f0;
+            --text:      #1e293b;
+            --muted:     #64748b;
+            --accent:    #2563eb;
+            --accent-lt: #eff6ff;
+            --accent-dk: #1d4ed8;
+            --nav-bg:    #0f172a;
+            --shadow:    0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
+            color: #fff;
+            padding: 64px 24px 56px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 20% 50%, rgba(37,99,235,.18) 0%, transparent 50%),
+                              radial-gradient(circle at 80% 20%, rgba(99,102,241,.15) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='rgba(255,255,255,0.04)'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        .hero-avatar-wrap {
+            position: relative;
+            width: 96px;
+            height: 96px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .hero-avatar {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            border: 3px solid rgba(255,255,255,.2);
+            background: linear-gradient(135deg, #2563eb, #6366f1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.4rem;
+            box-shadow: 0 0 0 6px rgba(37,99,235,.15), 0 8px 32px rgba(0,0,0,.3);
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .avatar-overlay {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: rgba(0,0,0,.55);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity .2s;
+            font-size: .65rem;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: .04em;
+            gap: 4px;
+        }
+
+        .hero-avatar-wrap:hover .avatar-overlay { opacity: 1; }
+
+        .avatar-overlay svg { width: 20px; height: 20px; }
+
+        .hero-location {
+            font-size: .78rem;
+            font-weight: 500;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: #60a5fa;
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            letter-spacing: -.02em;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #fff 0%, #bfdbfe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-quote {
+            color: #94a3b8;
+            font-size: .95rem;
+            font-style: italic;
+            max-width: 480px;
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        .hero-ticker {
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 28px;
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+        }
+
+        .hero-ticker-track {
+            display: flex;
+            gap: 12px;
+            width: max-content;
+            animation: ticker-scroll 18s linear infinite;
+        }
+
+        .hero-ticker:hover .hero-ticker-track { animation-play-state: paused; }
+
+        @keyframes ticker-scroll {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .hero-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,.07);
+            border: 1px solid rgba(255,255,255,.13);
+            color: #cbd5e1;
+            font-size: .82rem;
+            font-weight: 500;
+            padding: 7px 18px;
+            border-radius: 999px;
+            white-space: nowrap;
+            backdrop-filter: blur(6px);
+            transition: background .2s, color .2s;
+        }
+
+        .hero-chip:hover {
+            background: rgba(96,165,250,.18);
+            color: #fff;
+        }
+
+        .hero-chip .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #60a5fa;
+            flex-shrink: 0;
+        }
+
+        .hero-chip .dot.green  { background: #34d399; }
+        .hero-chip .dot.purple { background: #a78bfa; }
+        .hero-chip .dot.orange { background: #fb923c; }
+
+        .hero-chip-sep {
+            color: rgba(255,255,255,.2);
+            font-size: 1.1rem;
+            align-self: center;
+            user-select: none;
+        }
+
+        .hero-divider {
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #3b82f6, transparent);
+            margin: 0 auto;
+        }
+
+        /* ── Tab Nav ── */
+        nav {
+            background: var(--nav-bg);
+            border-top: 1px solid rgba(255,255,255,.06);
+            display: flex;
+            justify-content: center;
+            padding: 12px 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .tab-list {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,.08);
+            border-radius: 10px;
+            padding: 3px;
+            gap: 2px;
+        }
+
+        nav button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,.45);
+            font-family: inherit;
+            font-size: .875rem;
+            font-weight: 500;
+            padding: 7px 20px;
+            border-radius: 7px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: color .15s, background .15s, box-shadow .15s;
+            outline-offset: 2px;
+        }
+
+        nav button:hover { color: rgba(255,255,255,.75); }
+
+        nav button.active {
+            background: rgba(255,255,255,.13);
+            color: #fff;
+            box-shadow: 0 1px 4px rgba(0,0,0,.35), 0 0 0 .5px rgba(255,255,255,.08);
+        }
+
+        /* ── Layout ── */
+        .page { display: none; }
+        .page.active { display: block; }
+
+        .content {
+            max-width: 860px;
+            margin: 36px auto;
+            padding: 0 20px 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* ── Cards ── */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px 32px;
+            box-shadow: var(--shadow);
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-title .icon {
+            width: 28px;
+            height: 28px;
+            background: var(--accent-lt);
+            color: var(--accent);
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        /* ── Profile header ── */
+        .profile-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+        }
+
+        .profile-row img {
+            width: 110px;
+            height: 135px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 3px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        /* ── Tables ── */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: .9rem;
+        }
+
+        th, td { padding: 10px 14px; text-align: left; }
+
+        thead th, th:first-child {
+            background: #f1f5f9;
+            color: var(--muted);
+            font-weight: 600;
+            font-size: .78rem;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+        }
+
+        tr { border-bottom: 1px solid var(--border); }
+        tr:last-child { border-bottom: none; }
+        tbody tr:hover td { background: #f8fafc; }
+
+        /* ── Tags / badges ── */
+        .tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 999px;
+            font-size: .78rem;
+            font-weight: 600;
+        }
+
+        .tag-blue   { background: var(--accent-lt); color: var(--accent); }
+        .tag-green  { background: #f0fdf4; color: #16a34a; }
+        .tag-orange { background: #fff7ed; color: #ea580c; }
+
+        /* ── Lists ── */
+        ul, ol { padding-left: 20px; }
+        ul li, ol li {
+            padding: 6px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: .9rem;
+        }
+        ul li:last-child, ol li:last-child { border-bottom: none; }
+
+        /* ── Quote ── */
+        blockquote {
+            border-left: 3px solid var(--accent);
+            background: var(--accent-lt);
+            padding: 14px 20px;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: var(--accent-dk);
+            font-size: .9rem;
+            margin-top: 16px;
+        }
+
+        blockquote small { display: block; margin-top: 6px; color: var(--muted); font-style: normal; }
+
+        /* ── Address ── */
+        address {
+            font-style: normal;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            line-height: 2;
+            font-size: .9rem;
+        }
+
+        /* ── Gallery ── */
+        .gallery {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .gallery img {
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            object-fit: cover;
+        }
+
+        /* ── Media ── */
+        .media-label {
+            font-size: .78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--muted);
+            margin-bottom: 10px;
+            margin-top: 20px;
+        }
+
+        .media-label:first-child { margin-top: 0; }
+
+        audio { width: 100%; border-radius: 8px; }
+
+        iframe {
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            width: 100%;
+            max-width: 560px;
+            height: 280px;
+            display: block;
+        }
+
+        video {
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            max-width: 400px;
+            display: block;
+        }
+
+        .hint { color: var(--muted); font-size: .78rem; margin-top: 6px; }
+
+        /* ── Buttons ── */
+        .btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 9px 20px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: .88rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            border: none;
+            transition: opacity .15s, transform .1s;
+        }
+
+        .btn:hover { opacity: .85; transform: translateY(-1px); }
+        .btn:active { transform: translateY(0); }
+
+        .btn-primary  { background: var(--accent); color: #fff; }
+        .btn-dark     { background: var(--nav-bg); color: #fff; }
+        .btn-outline  { background: #fff; color: var(--accent); border: 1.5px solid var(--accent); }
+        .btn-ghost    { background: #f1f5f9; color: var(--text); }
+        .btn-pill     { background: var(--accent-lt); color: var(--accent); border-radius: 999px; }
+        .btn-shadow   { background: #fff; color: var(--text); border: 1px solid var(--border); box-shadow: 0 2px 0 var(--border); }
+
+        /* ── Links list ── */
+        .link-list { list-style: none; padding: 0; }
+
+        .link-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: .9rem;
+        }
+
+        .link-list li:last-child { border-bottom: none; }
+
+        .link-list a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .link-list a:hover { text-decoration: underline; }
+        .link-list .link-desc { color: var(--muted); font-size: .82rem; }
+
+        /* ── Visual effects demo ── */
+        .effect-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .fx-chip {
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: .88rem;
+            background: #f1f5f9;
+        }
+
+        .borders-demo p {
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: .88rem;
+            text-align: center;
+            margin-bottom: 8px;
+            color: var(--muted);
+        }
+
+        /* ── Nav actions inside page ── */
+        .page-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        /* ── Hobby overview cards ── */
+        .hobby-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+        }
+
+        .hobby-item {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .hobby-item .emoji { font-size: 1.8rem; margin-bottom: 8px; }
+        .hobby-item h4 { font-size: .88rem; font-weight: 600; margin-bottom: 4px; }
+        .hobby-item p { font-size: .78rem; color: var(--muted); }
+
+        /* ── Footer ── */
+        footer {
+            background: var(--nav-bg);
+            color: #64748b;
+            text-align: center;
+            padding: 28px 16px;
+            font-size: .85rem;
+        }
+
+        footer .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 10px; }
+
+        footer a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color .2s;
+        }
+
+        footer a:hover { color: #fff; }
+
+        .scroll-top {
+            display: inline-block;
+            background: rgba(255,255,255,.08);
+            color: #cbd5e1;
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 6px;
+            padding: 6px 16px;
+            font-size: .82rem;
+            cursor: pointer;
+            font-family: inherit;
+            margin-bottom: 16px;
+            transition: background .2s;
+        }
+
+        .scroll-top:hover { background: rgba(255,255,255,.14); }
+
+        abbr { text-decoration: underline dotted; cursor: help; }
+
+        /* ── Music Player ── */
+        #music-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 999;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(37,99,235,.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            transition: transform .15s, background .15s;
+        }
+        #music-btn:hover { transform: scale(1.1); background: var(--accent-dk); }
+        #music-btn.playing { background: #16a34a; box-shadow: 0 4px 16px rgba(22,163,74,.45); }
+    </style>
+</head>
+
+<body>
+
+    <div class="hero">
+        <div class="hero-inner">
+            <div class="hero-avatar-wrap" onclick="document.getElementById('avatarInput').click()" title="Click to change photo">
+                <div class="hero-avatar">
+                    <img id="avatarImg" alt="Volintika">
+                    <span id="avatarInitial">V</span>
+                </div>
+                <div class="avatar-overlay">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                        <circle cx="12" cy="13" r="4"/>
+                    </svg>
+                    Change Photo
+                </div>
+            </div>
+            <input type="file" id="avatarInput" accept="image/*" style="display:none;" onchange="changeAvatar(event)">
+            <div class="hero-location">📍 Hualien, Taiwan</div>
+            <h1>Volintika Inti Aura</h1>
+            <p class="hero-quote">"It's not about how long we live, but how meaningful our lives are."</p>
+            <div class="hero-ticker">
+                <div class="hero-ticker-track">
+                    <!-- original set -->
+                    <span class="hero-chip"><span class="dot"></span> Tzu Chi University</span>
+                    <span class="hero-chip-sep">✦</span>
+                    <span class="hero-chip"><span class="dot green"></span> International Service Management</span>
+                    <span class="hero-chip-sep">✦</span>
+                    <span class="hero-chip"><span class="dot purple"></span> 3rd Year</span>
+                    <span class="hero-chip-sep">✦</span>
+                    <span class="hero-chip"><span class="dot orange"></span> Class of 2026</span>
+                    <span class="hero-chip-sep">✦</span>
+                    <span class="hero-chip"><span class="dot"></span> Hualien, Taiwan</span>
+                    <span class="hero-chip-sep">✦</span>
+                    <span class="hero-chip"><span class="dot green"></span> Novels · Travel · Gaming</span>
+                    <span class="hero-chip-sep">✦</span>
+                    <span class="hero-chip"><span class="dot purple"></span> Mountaineering</span>
+                    <span class="hero-chip-sep">✦</span>
+                    <!-- duplicate for seamless loop -->
+                    <span class="hero-chip"><span class="dot"></span> Tzu Chi University</span>
+                    <span class="hero-chip-sep">✦</span>
+                    <span class="hero-chip"><span class="dot green"></span> International Service Management</span>
+                    <span class="hero-chip-sep">✦</span>
+                    <span class="hero-chip"><span class="dot purple"></span> 3rd Year</span>
+                    <span class="hero-chip-sep">✦</span>
+                    <span class="hero-chip"><span class="dot orange"></span> Class of 2026</span>
+                    <span class="hero-chip-sep">✦</span>
+                    <span class="hero-chip"><span class="dot"></span> Hualien, Taiwan</span>
+                    <span class="hero-chip-sep">✦</span>
+                    <span class="hero-chip"><span class="dot green"></span> Novels · Travel · Gaming</span>
+                    <span class="hero-chip-sep">✦</span>
+                    <span class="hero-chip"><span class="dot purple"></span> Mountaineering</span>
+                    <span class="hero-chip-sep">✦</span>
+                </div>
+            </div>
+            <div class="hero-divider"></div>
+        </div>
+    </div>
+
+    <nav>
+        <div class="tab-list">
+            <button class="active" onclick="showPage('home', this)">Home</button>
+            <button onclick="showPage('hobbies', this)">Hobbies</button>
+            <button onclick="showPage('contact', this)">Contact</button>
+        </div>
+    </nav>
+
+    <!-- ════════════════════════════════ HOME ════════════════════════════════ -->
+    <div id="home" class="page active">
+        <div class="content">
+
+            <!-- Profile -->
+            <div class="card">
+                <div class="card-title"><span class="icon">👤</span> About Me</div>
+                <div class="profile-row">
+                    <img src="images/photo.jpg" alt="Volintika Inti Aura"
+                         onerror="this.style.display='none'">
+                    <div style="flex:1;">
+                        <table>
+                            <tr><th>Name</th>       <td>Volintika Inti Aura</td></tr>
+                            <tr><th>Department</th> <td>International Service Management</td></tr>
+                            <tr><th>Year</th>       <td>3rd Year</td></tr>
+                            <tr><th>Motto</th>      <td><i>"It's not about how long we live, but how meaningful our lives are."</i></td></tr>
+                            <tr><th>Email</th>      <td><a href="mailto:112211112@gms.tcu.edu.tw" style="color:var(--accent);">112211112@gms.tcu.edu.tw</a></td></tr>
+                            <tr><th>Address</th>    <td>Jieren St. 67, Hualien, Taiwan</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <p style="margin-top:18px; color:var(--muted); font-size:.9rem;">
+                    Hi! I'm <strong style="color:var(--text);">Volintika</strong>, a 3rd-year student at
+                    <abbr title="Tzu Chi University">TCU</abbr>.
+                    I love reading novels, traveling, mountaineering, and playing games.
+                    This website was made for my Web Design class.
+                </p>
+            </div>
+
+            <!-- Gallery -->
+            <div class="card">
+                <div class="card-title"><span class="icon">🖼</span> Gallery</div>
+                <div class="gallery">
+                    <img src="img1.jpg" alt="Photo 1" width="180" height="130">
+                    <img src="img2.jpg" alt="Photo 2" width="180" height="130">
+                    <img src="img3.jpg" alt="Photo 3" width="180" height="130">
+                    <img src="img4.jpg" alt="Photo 4" width="180" height="130">
+                </div>
+            </div>
+
+            <!-- Media -->
+            <div class="card">
+                <div class="card-title"><span class="icon">▶</span> Media</div>
+
+                <div class="media-label">Audio</div>
+                <audio controls>
+                    <source src="audio/sample.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <p class="hint">Place your MP3 at <code>audio/sample.mp3</code></p>
+
+                <div class="media-label">YouTube</div>
+                <iframe src="https://www.youtube.com/embed/OIh98DfQU9k"
+                    title="YouTube Video" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+
+                <div class="media-label">Local Video</div>
+                <video controls width="380">
+                    <source src="sample.mp4" type="video/mp4">
+                    Your browser does not support the video element.
+                </video>
+            </div>
+
+            <!-- Schedule -->
+            <div class="card">
+                <div class="card-title"><span class="icon">📅</span> Weekly Schedule</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>09:10–12:10</td>
+                            <td>Self Media Operation Management</td>
+                            <td style="color:var(--muted);">—</td>
+                            <td>Chain Business Practices</td>
+                        </tr>
+                        <tr>
+                            <td>10:20–12:10</td>
+                            <td style="color:var(--muted);">—</td>
+                            <td>Aerobic Dance</td>
+                            <td style="color:var(--muted);">—</td>
+                        </tr>
+                        <tr>
+                            <td>13:30–15:20</td>
+                            <td>TOEIC Speaking and Writing</td>
+                            <td style="color:var(--muted);">—</td>
+                            <td style="color:var(--muted);">—</td>
+                        </tr>
+                        <tr>
+                            <td>15:40–17:30</td>
+                            <td>Web Visual Programming Design</td>
+                            <td>AI Principles and Ethics</td>
+                            <td style="color:var(--muted);">—</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Links -->
+            <div class="card">
+                <div class="card-title"><span class="icon">🔗</span> Links</div>
+                <ul class="link-list">
+                    <li>
+                        <a href="#" onclick="showPage('hobbies', document.querySelectorAll('nav button')[1]); return false;">My Hobbies</a>
+                        <span class="link-desc">— internal page</span>
+                    </li>
+                    <li>
+                        <a href="#" onclick="showPage('contact', document.querySelectorAll('nav button')[2]); return false;">Contact Me</a>
+                        <span class="link-desc">— internal page</span>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/" target="_blank">YouTube</a>
+                        <span class="link-desc">— opens in new tab</span>
+                    </li>
+                    <li>
+                        <a href="https://www.google.com/" target="_blank">Google</a>
+                        <span class="link-desc">— opens in new tab</span>
+                    </li>
+                    <li>
+                        <a href="mailto:112211112@gms.tcu.edu.tw">Email Me</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Buttons showcase -->
+            <div class="card">
+                <div class="card-title"><span class="icon">🎨</span> Button Styles</div>
+                <div class="btn-row">
+                    <a class="btn btn-primary" href="#" onclick="return false;">Primary</a>
+                    <a class="btn btn-outline" href="#" onclick="return false;">Outline</a>
+                    <a class="btn btn-dark"    href="#" onclick="return false;">Dark</a>
+                    <button class="btn btn-ghost">Ghost</button>
+                    <button class="btn btn-pill">Pill</button>
+                    <button class="btn btn-shadow">Shadow</button>
+                </div>
+            </div>
+
+            <!-- Visual effects -->
+            <div class="card">
+                <div class="card-title"><span class="icon">✨</span> Text &amp; Visual Effects</div>
+                <div class="effect-row">
+                    <span class="fx-chip"><b>Bold</b></span>
+                    <span class="fx-chip"><i>Italic</i></span>
+                    <span class="fx-chip"><mark>Highlighted</mark></span>
+                    <span class="fx-chip"><del>Deleted</del></span>
+                    <span class="fx-chip"><ins>Inserted</ins></span>
+                    <span class="fx-chip"><small>Small</small></span>
+                    <span class="fx-chip">H<sub>2</sub>O</span>
+                    <span class="fx-chip">x<sup>2</sup></span>
+                </div>
+
+                <div class="borders-demo">
+                    <p style="border:1.5px solid var(--border);">Solid border</p>
+                    <p style="border:1.5px dashed #94a3b8;">Dashed border</p>
+                    <p style="border:1.5px dotted #94a3b8;">Dotted border</p>
+                    <p style="border:3px double #94a3b8;">Double border</p>
+                </div>
+
+                <blockquote>
+                    "The pen is mightier than the sword, but a good novel is mightiest of all."
+                </blockquote>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════ HOBBIES ════════════════════════════════ -->
+    <div id="hobbies" class="page">
+        <div class="content">
+
+            <!-- Overview grid -->
+            <div class="card">
+                <div class="card-title"><span class="icon">🌟</span> My Interests</div>
+                <div class="hobby-grid">
+                    <div class="hobby-item">
+                        <div class="emoji">📚</div>
+                        <h4>Reading Novels</h4>
+                        <p>Tere Liye · drama, romance &amp; inspiration</p>
+                        <div style="margin-top:8px;"><span class="tag tag-blue">Avid</span></div>
+                    </div>
+                    <div class="hobby-item">
+                        <div class="emoji">🎮</div>
+                        <h4>Playing Games</h4>
+                        <p>Story-driven games with rich lore</p>
+                        <div style="margin-top:8px;"><span class="tag tag-green">Casual</span></div>
+                    </div>
+                    <div class="hobby-item">
+                        <div class="emoji">✈️</div>
+                        <h4>Traveling</h4>
+                        <p>New cultures, cuisines &amp; hidden places</p>
+                        <div style="margin-top:8px;"><span class="tag tag-orange">Passionate</span></div>
+                    </div>
+                    <div class="hobby-item">
+                        <div class="emoji">⛰️</div>
+                        <h4>Mountaineering</h4>
+                        <p>Hiking &amp; climbing Taiwan's peaks</p>
+                        <div style="margin-top:8px;"><span class="tag tag-green">Intermediate</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reading -->
+            <div class="card">
+                <div class="card-title"><span class="icon">📖</span> Reading Novels</div>
+                <p style="font-size:.9rem; color:var(--muted); margin-bottom:14px;">
+                    My favourite author is <strong style="color:var(--text);">Tere Liye</strong> — an Indonesian novelist known for emotional, meaningful stories.
+                </p>
+                <p style="font-size:.82rem; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin-bottom:8px;">Favourite Genres</p>
+                <ul>
+                    <li>Drama &amp; Romance (Tere Liye style)</li>
+                    <li>Fantasy &amp; Adventure</li>
+                    <li>Mystery &amp; Thriller</li>
+                    <li>Inspirational &amp; Life stories</li>
+                </ul>
+
+                <p style="font-size:.82rem; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin:16px 0 8px;">Top Picks</p>
+                <ol>
+                    <li><cite>Bumi Series</cite> (Bumi, Bulan, Matahari, Bintang…) — Tere Liye</li>
+                    <li><cite>Pukat Series</cite> — Tere Liye</li>
+                    <li><cite>Tentang Kamu</cite> (About You) — Tere Liye</li>
+                    <li><cite>Hafalan Shalat Delisa</cite> — Tere Liye</li>
+                </ol>
+
+                <p style="font-size:.82rem; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin:16px 0 8px;">A Video I Enjoy</p>
+                <iframe src="https://www.youtube.com/embed/OIh98DfQU9k"
+                    title="YouTube Video" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+
+                <blockquote style="margin-top:16px;">
+                    <span style="font-size:.85rem;">Hidup bukan tentang seberapa lama kita hidup, tetapi seberapa bermakna kita hidup.</span>
+                    <small>— Tere Liye · "It's not about how long we live, but how meaningful our lives are."</small>
+                </blockquote>
+            </div>
+
+            <!-- Travel -->
+            <div class="card">
+                <div class="card-title"><span class="icon">🗺</span> Travel &amp; Mountaineering</div>
+                <p style="font-size:.82rem; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin-bottom:10px;">Mountains to Climb</p>
+                <table>
+                    <thead>
+                        <tr><th>Mountain</th><th>Location</th><th>Elevation</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>⛰️ Semeru</td><td>East Java, Indonesia</td><td>3,676 m</td></tr>
+                        <tr><td>⛰️ Rinjani</td><td>Lombok, Indonesia</td><td>3,726 m</td></tr>
+                        <tr><td>🏔️ Himalayan (Everest)</td><td>Nepal / Tibet</td><td>8,849 m</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="gallery" style="margin-top:16px;">
+                    <img src="img3.jpg" alt="Travel 1" width="180" height="130">
+                    <img src="img4.jpg" alt="Travel 2" width="180" height="130">
+                </div>
+            </div>
+
+            <div class="page-actions">
+                <button onclick="showPage('home',    document.querySelectorAll('nav button')[0])" class="btn btn-dark">← Home</button>
+                <button onclick="showPage('contact', document.querySelectorAll('nav button')[2])" class="btn btn-primary">Contact Me →</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════ CONTACT ════════════════════════════════ -->
+    <div id="contact" class="page">
+        <div class="content">
+
+            <!-- Info table -->
+            <div class="card">
+                <div class="card-title"><span class="icon">📋</span> Contact Information</div>
+                <table>
+                    <tr><th>Name</th>       <td>Volintika Inti Aura</td></tr>
+                    <tr><th>Department</th> <td><abbr title="Bachelor Program in International Service Management">ISM</abbr> — International Service Management</td></tr>
+                    <tr><th>Year</th>       <td>3rd Year (2023–2026)</td></tr>
+                    <tr><th>Email</th>      <td><a href="mailto:112211112@gms.tcu.edu.tw" style="color:var(--accent);">112211112@gms.tcu.edu.tw</a></td></tr>
+                    <tr><th>University</th> <td><a href="https://tcueng.tcu.edu.tw/" target="_blank" style="color:var(--accent);"><abbr title="Tzu Chi University">TCU</abbr></a> — Tzu Chi University</td></tr>
+                    <tr><th>Interests</th>  <td>Reading Novels, Gaming, Traveling, Mountaineering</td></tr>
+                </table>
+            </div>
+
+            <!-- Address -->
+            <div class="card">
+                <div class="card-title"><span class="icon">📍</span> Address</div>
+                <address>
+                    <strong>Volintika Inti Aura</strong><br>
+                    Jieren St. 67, Hualien City, Taiwan<br><br>
+                    University: Tzu Chi University, No. 701, Zhong-Yang Rd, Hualien<br>
+                    Email: <a href="mailto:112211112@gms.tcu.edu.tw" style="color:var(--accent);">112211112@gms.tcu.edu.tw</a>
+                </address>
+                <p style="margin-top:12px; font-size:.85rem; color:var(--muted);"
+                   title="Hualien is on the east coast of Taiwan — famous for Taroko Gorge and mountains">
+                    ℹ️ Hover for a tooltip about Hualien.
+                </p>
+            </div>
+
+            <!-- About -->
+            <div class="card">
+                <div class="card-title"><span class="icon">💬</span> A Little More About Me</div>
+                <p style="font-size:.9rem; color:var(--muted);">
+                    I study <abbr title="International Service Management">ISM</abbr> at
+                    <abbr title="Tzu Chi University">TCU</abbr> in beautiful Hualien, Taiwan.
+                    Baking, cooking, and traveling are at the heart of my interests, letting me express creativity while experiencing diverse cultures and cuisines.
+                </p>
+                <blockquote style="margin-top:14px;">
+                    "It's not about how long we live, but how meaningful our lives are."
+                    <small>— Tere Liye</small>
+                </blockquote>
+            </div>
+
+            <!-- Useful links -->
+            <div class="card">
+                <div class="card-title"><span class="icon">🔗</span> Useful Links</div>
+                <ul class="link-list">
+                    <li><a href="#" onclick="showPage('home',    document.querySelectorAll('nav button')[0]); return false;">Home Page</a></li>
+                    <li><a href="#" onclick="showPage('hobbies', document.querySelectorAll('nav button')[1]); return false;">Hobbies Page</a></li>
+                    <li><a href="https://www.youtube.com/" target="_blank">YouTube</a></li>
+                    <li><a href="https://tcueng.tcu.edu.tw/" target="_blank">TCU Website</a></li>
+                </ul>
+            </div>
+
+            <div class="page-actions">
+                <button onclick="showPage('home',    document.querySelectorAll('nav button')[0])" class="btn btn-dark">← Home</button>
+                <button onclick="showPage('hobbies', document.querySelectorAll('nav button')[1])" class="btn btn-ghost">My Hobbies</button>
+                <a href="mailto:112211112@gms.tcu.edu.tw" class="btn btn-primary">✉ Send Email</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Floating music player -->
+    <audio id="bg-music" loop>
+        <source src="audio/sample.mp3" type="audio/mpeg">
+    </audio>
+    <button id="music-btn" title="Play / Pause music">🎵</button>
+
+    <footer>
+        <button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Back to Top</button>
+        <div class="footer-links">
+            <a href="#" onclick="showPage('home',    document.querySelectorAll('nav button')[0]); return false;">Home</a>
+            <a href="#" onclick="showPage('hobbies', document.querySelectorAll('nav button')[1]); return false;">Hobbies</a>
+            <a href="#" onclick="showPage('contact', document.querySelectorAll('nav button')[2]); return false;">Contact</a>
+        </div>
+        <p>&copy; 2026 Volintika Inti Aura</p>
+    </footer>
+
+    <script>
+        function showPage(id, btn) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            if (btn) btn.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function setAvatar(src) {
+            const img = document.getElementById('avatarImg');
+            const initial = document.getElementById('avatarInitial');
+            img.onload = () => { initial.style.display = 'none'; };
+            img.onerror = () => { img.removeAttribute('src'); initial.style.display = ''; };
+            img.src = src;
+        }
+
+        function changeAvatar(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = e => {
+                setAvatar(e.target.result);
+                try { localStorage.setItem('avatarSrc', e.target.result); } catch(_) {}
+            };
+            reader.readAsDataURL(file);
+            event.target.value = '';
+        }
+
+        const saved = localStorage.getItem('avatarSrc');
+        if (saved) setAvatar(saved);
+        else setAvatar('OLIN.jpeg');
+
+        // Music autoplay
+        const music = document.getElementById('bg-music');
+        const btn   = document.getElementById('music-btn');
+
+        function setPlaying(on) {
+            btn.textContent = on ? '🔊' : '🎵';
+            btn.classList.toggle('playing', on);
+        }
+
+        btn.addEventListener('click', () => {
+            if (music.paused) { music.play(); setPlaying(true); }
+            else              { music.pause(); setPlaying(false); }
+        });
+
+        // Try autoplay immediately
+        music.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+    </script>
+
+</body>
+</html>
