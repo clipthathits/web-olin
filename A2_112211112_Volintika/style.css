@@ -1,0 +1,299 @@
+/* =========================================================
+   style.css — Assignment 2 | Volintika Inti Aura 112211112
+   Web Visual Programming Design | Tzu Chi University
+   ========================================================= */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --primary:       #2563eb;
+    --primary-dk:    #1d4ed8;
+    --primary-lt:    #eff6ff;
+    --nav-bg:        #1a4a8a;
+    --header-bg:     #c8d8f8;
+    --dark:          #0f172a;
+    --text:          #1e293b;
+    --muted:         #64748b;
+    --border:        #e2e8f0;
+    --surface:       #ffffff;
+    --bg:            #f0f5ff;
+    --shadow:        0 2px 8px rgba(0,0,0,.08), 0 6px 24px rgba(0,0,0,.05);
+}
+
+body {
+    font-family: Arial, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* ── Header ── */
+header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 60%, #0f172a 100%);
+    color: #fff;
+    text-align: center;
+    padding: 48px 20px 40px;
+    border-bottom: 4px solid var(--primary);
+}
+
+header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    margin-bottom: 8px;
+    background: linear-gradient(to right, #ffffff, #bfdbfe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+header .subtitle   { color: #94a3b8; font-size: .95rem; margin-bottom: 6px; }
+header .student-id { color: #60a5fa; font-size: .85rem; font-weight: 600; letter-spacing: .04em; }
+
+/* ── Nav ── */
+nav {
+    background: var(--nav-bg);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 10px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid rgba(255,255,255,.08);
+}
+
+nav a {
+    color: rgba(255,255,255,.65);
+    text-decoration: none;
+    padding: 6px 18px;
+    border-radius: 6px;
+    font-size: .88rem;
+    font-weight: 700;
+    transition: background .15s, color .15s;
+}
+
+nav a:hover { background: rgba(255,255,255,.15); color: #fff; }
+
+/* ── Main layout ── */
+.content {
+    max-width: 920px;
+    margin: 32px auto;
+    padding: 0 20px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* ── Section cards ── */
+section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    box-shadow: var(--shadow);
+}
+
+section h2 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--nav-bg);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--header-bg);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ── Shared table base ── */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .9rem;
+}
+
+th {
+    background: var(--header-bg);
+    color: var(--nav-bg);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 700;
+    letter-spacing: .03em;
+    border: 1px solid #b6cdf5;
+}
+
+td {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    vertical-align: middle;
+}
+
+tbody tr:nth-child(even) td { background: #f8fafc; }
+tbody tr:hover td           { background: var(--primary-lt); transition: background .15s; }
+
+/* ── Profile table ── */
+.profile-table .photo-cell {
+    width: 140px;
+    text-align: center;
+    background: #eef4ff;
+}
+
+.profile-photo {
+    width: 118px;
+    height: 148px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 3px solid #b6cdf5;
+}
+
+.profile-table .motto-cell {
+    text-align: center;
+    background: var(--primary-lt);
+    font-style: italic;
+    color: var(--primary-dk);
+    padding: 14px;
+}
+
+/* ── Hobby educational chart ── */
+.hobby-chart thead th {
+    text-align: center;
+    font-size: 1rem;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--nav-bg), var(--primary));
+    color: #fff;
+    border: none;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+.hobby-img-row td {
+    text-align: center;
+    padding: 18px 10px 10px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+}
+
+.hobby-img {
+    width: 170px;
+    height: 128px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #b6cdf5;
+    display: block;
+    margin: 0 auto 10px;
+    transition: transform .2s;
+}
+
+.hobby-img:hover { transform: scale(1.04); }
+
+.hobby-label {
+    font-weight: 700;
+    font-size: .95rem;
+    color: var(--nav-bg);
+}
+
+.hobby-desc-row td {
+    text-align: center;
+    font-size: .85rem;
+    color: var(--muted);
+    background: #fff;
+    border: 1px solid var(--border);
+}
+
+.hobby-level-row td {
+    text-align: center;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+}
+
+/* ── Travel table ── */
+.travel-img {
+    width: 90px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 2px solid #b6cdf5;
+}
+
+/* ── Schedule ── */
+.empty-cell { color: var(--muted); text-align: center; background: #fafafa; }
+
+/* ── Genre list ── */
+.list-label {
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    color: var(--muted);
+    margin: 14px 0 6px;
+}
+
+.genre-list { padding-left: 20px; }
+
+.genre-list li {
+    padding: 5px 0;
+    border-bottom: 1px dashed var(--border);
+    font-size: .9rem;
+}
+
+.genre-list li:last-child { border-bottom: none; }
+
+/* ── Badges ── */
+.badge {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 999px;
+    font-size: .78rem;
+    font-weight: 700;
+}
+
+.badge-blue   { background: var(--primary-lt); color: var(--primary); }
+.badge-green  { background: #f0fdf4;            color: #16a34a; }
+.badge-orange { background: #fff7ed;            color: #ea580c; }
+.badge-purple { background: #f5f3ff;            color: #7c3aed; }
+
+/* ── Buttons ── */
+.btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: .9rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    transition: opacity .15s, transform .1s;
+}
+
+.btn:hover  { opacity: .85; transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+.btn-primary { background: var(--primary);  color: #fff; }
+.btn-dark    { background: var(--dark);     color: #fff; }
+.btn-outline { background: #fff; color: var(--primary); border: 2px solid var(--primary); }
+.btn-ghost   { background: #f1f5f9;         color: var(--text); }
+
+/* ── Footer ── */
+footer {
+    background: var(--dark);
+    color: #64748b;
+    text-align: center;
+    padding: 24px 16px;
+    font-size: .85rem;
+    border-top: 3px solid var(--primary);
+}
+
+footer a { color: #94a3b8; text-decoration: none; }
+footer a:hover { color: #fff; }
